@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
-const mongoUrlDocker = 'mongodb://database/apateez-reviews';
-const mongoUrl = 'mongodb://localhost/apateez-reviews';
-const mongoENV = process.env.MONGO_URI;
+// const mongoUrl = 'mongodb://localhost/apateez-reviews';
+const mongoUrlDocker = 'mongodb://zagetreviews:zagetreviews@18.144.28.155/admin';
+// const mongoENV = process.env.MONGO_URI;
 
-mongoose.connect(mongoUrl); // Try localhost first
+// mongoose.connect(mongoUrl); // Try localhost fisrst
+mongoose.connect(mongoUrlDocker);
 // mongoose.connect(mongoENV);
 
 mongoose.connection.on('connected', () => {
@@ -13,8 +14,6 @@ mongoose.connection.on('connected', () => {
 
 mongoose.connection.on('error', (err) => {
   console.log(`Mongoose default connection error: ${err}`);
-  // mongoose.connect(mongoUrlDocker);
-  mongoose.connect(mongoUrl);
 });
 
 const storeSchema = mongoose.Schema({

@@ -1,0 +1,14 @@
+node_modules
+data.json
+195-Zag*
+reviews.csv
+description.csv
+zaget.csv
+test.json
+newrelic_agent.log
+faker
+tests
+.git
+*Dockerfile*
+*docker-compose*
+node_modules

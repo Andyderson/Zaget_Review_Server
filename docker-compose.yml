@@ -3,10 +3,7 @@ version: '3'
 services:
   reviews:
     build: .
-    depends_on:
-      - 'database'
+    restart: always
+    tty: true
     ports:
       - '3003:3003'
-
-  database:
-    image: mongo:latest

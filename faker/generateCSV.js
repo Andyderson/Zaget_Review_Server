@@ -12,7 +12,7 @@ const createReviews = (index) => {
   product.name = faker.company.companyName().replace(',', '');
 
   product.reviews = [];
-  for (let j = 0; j < Math.floor(Math.random() * (8 - 0) + 0); j++) {
+  for (let j = 0; j < Math.floor(Math.random() * (8 - 1) + 1); j++) {
     product.reviews.push({
       author_name: `${faker.name.firstName()}${faker.name.lastName()}`,
       profile_photo_url: faker.image.avatar(),
@@ -29,6 +29,10 @@ const createReviews = (index) => {
   product.street = faker.address.streetName();
   return product;
 };
+
+//<<<<<<<<<<<<<<< CSV Generation >>>>>>>>>>>>>>>>>>>
+
+
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<< Generate CSV Description >>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -61,17 +65,29 @@ const generateDescriptionCSV = (number, writer, encoding, callback) => {
 
 const generateReviewsCSV = (number, writer, encoding, callback) => {
   let i = number;
+  let j = 0;
+  let line;
+  let reviewlines;
   function write() {
     let ok = true;
     do {
       i -= 1;
-      const review = createReviews(i);
-      const line = `${review.place_id},${review.reviews[0].author_name},${review.reviews[0].profile_photo_url},${review.reviews[0].rating},${review.reviews[0].text},${review.reviews[0].relative_time_description}\n`;
+      const review = createReviews(j);
+      // console.log('reviews', createReviews(1).reviews);
+      // review.reviews.forEach(review => {
+        
+      // })
+      line = `${review.place_id},${review.author_name},${review.profile_photo_url},${review.rating},${review.text},${review.relative_time_description}\n`;
+      
       if (i === 0) {
         writer.write(line, encoding, callback);
       } else {
         ok = writer.write(line, encoding);
+        review.reviews.forEach(review => {
+          writer.write()
+        })
       }
+      j++;
     } while (i > 0 && ok);
     if (i > 0) {
       writer.once('drain', write);
@@ -80,15 +96,15 @@ const generateReviewsCSV = (number, writer, encoding, callback) => {
   write();
 };
 
-// generateReviewsCSV(10, fs.createWriteStream('./abcdreviews.csv'), 'utf8', () => {
-//   console.log('WriteStream Complete');
-// });
+generateReviewsCSV(10, fs.createWriteStream('./abcdreviews.csv'), 'utf8', () => {
+  console.log('WriteStream Complete');
+});
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< CSV Generation >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-// let options = {
-//   autoClose: true
-// };
+let options = {
+  autoClose: true
+};
 
 // let writeStream = fs.createWriteStream('description.csv', options);
 // let i = 1;
@@ -108,25 +124,29 @@ const generateReviewsCSV = (number, writer, encoding, callback) => {
 // };
 // write();
 
-// //<<<<<<<<<<<<<<<<<<<<<< Reviews >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//<<<<<<<<<<<<<<<<<<<<<< Reviews >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-// let writeStream = fs.createWriteStream('reviews.csv', options);
-// let i = 1;
-// let write = function() {
-//   let ok = true;
-//   while (i <= counter && ok) {
-//     if (i === counter) {
-//       writeStream.write(`${i}|${faker.name.firstName()}${faker.name.lastName()}|${faker.image.avatar()}|${Number((Math.random() * 5).toFixed(0))}|${faker.lorem.sentences()}|${faker.date.recent()} \n`);
-//     } else {
-//       ok = writeStream.write(`${i}|${faker.name.firstName()}${faker.name.lastName()}|${faker.image.avatar()}|${Number((Math.random() * 5).toFixed(0))}|${faker.lorem.sentences()}|${faker.date.recent()}\n`);
+// const millionReviews = (counter) => {
+//   let writeStream = fs.createWriteStream('abcdreviews.csv', options);
+//   let i = 1;
+//   let write = function() {
+//     let ok = true;
+//     while (i <= counter && ok) {
+//       if (i === counter) {
+//         writeStream.write(`${i}|${faker.name.firstName()}${faker.name.lastName()}|${faker.image.avatar()}|${Number((Math.random() * 5).toFixed(0))}|${faker.lorem.sentences()}|${faker.date.recent()} \n`);
+//       } else {
+//         ok = writeStream.write(`${i}|${faker.name.firstName()}${faker.name.lastName()}|${faker.image.avatar()}|${Number((Math.random() * 5).toFixed(0))}|${faker.lorem.sentences()}|${faker.date.recent()}\n`);
+//       }
+//       i++;
 //     }
-//     i++;
-//   }
-//   if (i <= counter) {
-//     writeStream.once('drain', write);
-//   }
-// };
-// write();
+//     if (i <= counter) {
+//       writeStream.once('drain', write);
+//     }
+//   };
+//   write();
+// }
+
+// millionReviews(100);
 
 module.exports.generateReviewsCSV = generateReviewsCSV;
 module.exports.generateDescriptionCSV = generateDescriptionCSV;

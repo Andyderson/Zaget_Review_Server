@@ -7,7 +7,6 @@ export default class Review extends React.Component {
    this.state = {
      expanded: false
    };
-
    this.expandDescription = this.expandDescription.bind(this);
  }
  expandDescription() {
@@ -15,7 +14,6 @@ export default class Review extends React.Component {
      expanded: !this.state.expanded
    })
  }
-
 
  render() {
    let review = this.props.review[0]

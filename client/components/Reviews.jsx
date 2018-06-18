@@ -37,8 +37,8 @@ const customStyles = { // modal styles
 export default class Reviews extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
+      // reviewList: this.props.reviewList || [],
       reviewList: [],
       rating: '',
       modalIsOpen: false,
@@ -65,17 +65,19 @@ export default class Reviews extends React.Component {
   }
 
   fetchReviews() {
-    let id = window.location.href.split('/')[4];
-    axios.get(`${BASE_URL}/api/restaurants/${id}`)
-    .then(({data}) => {
-      this.setState({
-        reviewList: data.reviews,
-        rating: data.rating,
+    if (typeof window !== 'undefined') {
+      let id = window.location.href.split('/')[4];
+      axios.get(`${BASE_URL}/api/restaurants/${id}`)
+      .then(({data}) => {
+        this.setState({
+          reviewList: data.reviews,
+          rating: data.rating,
+        })
       })
-    })
-    .catch((err) => {
-      console.log('ERROR: ', err)
-    })
+      .catch((err) => {
+        console.log('ERROR: ', err)
+      })
+    }
   }
 
    render() {

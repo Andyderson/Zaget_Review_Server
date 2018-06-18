@@ -7,6 +7,11 @@ export default class Description extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // title: this.props.title || '',
+      // neighborhood: this.props.neighborhood || '',
+      // city: this.props.city || '',
+      // street: this.props.street || '',
+      // price_level: this.props.price_level || 1,
       title: '',
       neighborhood: '',
       city: '',
@@ -29,20 +34,22 @@ export default class Description extends React.Component {
   }
 
   fetchReviews() {
-    let id = window.location.href.split('/')[4]
-    axios.get(`${BASE_URL}/api/restaurants/${id}`)
-    .then(({data}) => {
-      this.setState({
-        title: data.name,
-        neighborhood: data.neighborhood,
-        price_level: data.price_level,
-        city: data.city,
-        street: data.street
+    if (typeof window !== 'undefined') {
+      let id = window.location.href.split('/')[4]
+      axios.get(`${BASE_URL}/api/restaurants/${id}`)
+      .then(({data}) => {
+        this.setState({
+          title: data.name,
+          neighborhood: data.neighborhood,
+          price_level: data.price_level,
+          city: data.city,
+          street: data.street
+        })
       })
-    })
-    .catch((err) => {
-      console.log('ERROR: ', err)
-    })
+      .catch((err) => {
+        console.log('ERROR: ', err)
+      })
+    }
   }
 
   render() {
@@ -63,7 +70,7 @@ export default class Description extends React.Component {
           <div className="description-details">{dollar}</div>
         </div>
         <div className="logo-container">
-          <img src="https://s3-us-west-1.amazonaws.com/apateezassets/apateez-logo-small-red.jpeg" className='apateez-logo'/>
+          {/* <img src="https://s3-us-west-1.amazonaws.com/apateezassets/apateez-logo-small-red.jpeg" className='apateez-logo'/> */}
           <div className="description-divider"/>
         </div>
         <div className="description-apateez-header">THE APATEEZ REVIEW</div>
