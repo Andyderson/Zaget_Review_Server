@@ -2,7 +2,7 @@
 
 Apateez Reviews Component
 
-> Project description
+> Scaling and optimization of the backend to handle production-level data traffic
 
 ## Related Projects
 
@@ -19,19 +19,19 @@ Apateez Reviews Component
 
 ## Usage
 
-1) run 'npm run seed' to seed MongoDB with data from Google places API.
-2) run 'npm run build' to run webpack --watch
-3) run 'npm start' to start server on port 3003.
-
-
-
+1) Run 'npm start' to spin up server on port 3003.
+2) Run 'npm run build' to run webpack --watch.
+3) Run 'npm run seed' to seed MongoDB.
+4) Run 'npm test:watch' to run Jest tests.
+5) Run 'npm test:coverage' to run Jest and display coverage stats.
+6) Run 'npm lint' to run Airbnb linter.
+7) Run 'npm line:fix' to fix identified Airbnb linter errors.
 
 ## Requirements
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 6.13.0
-- etc
 
 ## Development
 

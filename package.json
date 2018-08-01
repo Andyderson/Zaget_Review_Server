@@ -10,7 +10,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest ./generate.test.js --coverage",
     "build": "webpack -d --watch",
-    "build:prod": "webpack -d",
+    "build:prod": "webpack -p",
     "start": "node ./server/server.js",
     "seed": "node ./seedDb.js",
     "docker": "npm run build:prod & npm run start",
